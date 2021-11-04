@@ -1,5 +1,6 @@
 # Sudoku
 
+---
 
 https://sugoku.herokuapp.com/board?difficulty=medium
 
@@ -10,11 +11,8 @@ https://sugoku.herokuapp.com/board?difficulty=medium
 Welcome to Python!
 
 [[8 6 0 3 9 0 1 0 2]
-
  [0 0 0 0 0 0 4 0 0]
- 
  [0 0 9 0 0 0 0 6 0]
- 
  [0 1 0 6 3 0 0 0 0]
  
  [3 0 5 0 0 0 0 1 4]
