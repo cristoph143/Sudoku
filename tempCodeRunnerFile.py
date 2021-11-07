@@ -1,1 +1,0 @@
-self.candidates[i].randomize_with_given_and_given_row_and_given_column_and_given_box_and_given_box_and_given_column(self.given)

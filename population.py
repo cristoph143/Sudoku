@@ -1,6 +1,5 @@
 
 import random
-import
 from numpy.random.mtrand import randint
 from candidate import Candidate
 import numpy
