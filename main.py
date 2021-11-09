@@ -71,13 +71,13 @@ def main():
     sud_str = " ".join(map(str, a_list))
     print(sud_str)
     list = [a_list[i:i + 9] for i in range(0, len(a_list), 9)]
-    list = np.array(list)
+    # list = np.array(list)
     # print(" ".join(map(str, list)))
     # print(list)  # print the list of lists so that we can see the grid
 
     sudoku = Sudoku(list)
     print('Welcome to Python!')
-    sudoku.solve(sud_str)
+    sudoku.solve(list)
 
     while True:
         for event in pygame.event.get():

@@ -9,37 +9,66 @@ Nd = 9  # number of digits
 
 class Population(object):
 
-    def __init__(self, given, NC):
+    def __init__(self,given,Nc):
         self.candidates = []
-        self.NC = NC
-        self.given = given
+        self.population = []
+        self.values = given
+        self.num_can = Nc
+        self.bestPop = []
         return
 
+    # call seed function to get candidates and saved to initialized population
+    def initialize(self, Nc, given):
+        self.candidates =  []
+        for generation in range(0, Nc):
+            self.seed(given)
+            self.population.append(self.candidates)
+        return
 
-    def seed(self, Nc, given):
-        # initialized population from the number of candidates and given values with heuristic initialization method
-        for i in range(0, Nc):
-            candidate = Candidate()
-            candidate.values = [[0 for j in range(0, Nd)] for i in range(0, Nd)]
-            for j in range(0, Nd): # row
-                for k in range(0, Nd): # column
-                    if given[j][k] == 0: # if the value is not given
-                        candidate.values[j][k] = random.randint(1, Nd) # assign random value
-                        # check if candidate.values[j][k] is not in the row, column or 3x3 box
-                        if self.check_candidate(candidate, j, k) == True:
-                            self.candidates.append(candidate)
-                        else:
-                            k -= 1
-                            if k < k - 1:
-                                k += 1
-                            if k > k + 1:
-                                k -= 1
-                        # candidate.values[j][k] = random.randint(1, Nd)
-                        # self.candidates.append(candidate.values[j][k])
+    def seed(self, given):
+        self.candidates = [] 
+
+        # Determine the legal values that each square can take.
+        helper = Candidate()
+        helper.values = [[0 for j in range(0, Nd)] for i in range(0, Nd)]
+        for row in range(0, Nd):
+            for column in range(0, Nd): 
+                if given[row][column] == 0: 
+                    # helper.values[row][column] = random.randint(1, Nd)
+                    # print(helper.values[row][column])
+                    if self.check_candidate(helper, row, column) == True:
+                        # Value is available.
+                        helper.values[row][column]
+                        print(helper.values[row][column])
                     else:
-                        candidate.values[j][k] = given[j][k]
-            self.candidates.append(candidate)
+                        helper.values[row][column] = random.randint(1, Nd)
+                        print(helper.values[row][column])
+                        column -= 1
+                        if column < column - 1:
+                            column += 1
+                        if column > column + 1:
+                            column -= 1
+                elif(given[row][column] != 0):
+                    # Given/known value from file.
+                    helper.values[row][column] = given[row][column]
+        fitness = self.fitness(helper)
+        # for row1 in range(0, Nd):
+        #     for column1 in range(0, Nd):
+        #         self.check_candidate(helper, row1, column1)
         
+        # Compute the fitness of all candidates in the population.
+        # self.update_fitness()
+        print("Seeding complete.")
+        return
+
+    def fitness(self, candidate):
+        # Compute the fitness of a candidate.
+        fitness = 0
+        for row in range(0, Nd):
+            for column in range(0, Nd):
+                if candidate.values[row][column] == self.values[row][column]:
+                    fitness += 1
+        return fitness
     
     def check_candidate(self, candidate, j, k):
         # check if candidate.values[j][k] is not in the row, column or 3x3 box
@@ -57,3 +86,9 @@ class Population(object):
                     if candidate.values[i][i] == candidate.values[j][k]:
                         return False
         return True
+
+    def update_fitness(self):
+        # Compute the fitness of all candidates in the population.
+        for candidate in self.candidates:
+            candidate.fitness = self.fitness(candidate)
+        return

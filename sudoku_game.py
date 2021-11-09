@@ -18,7 +18,12 @@ class Sudoku:
 
         # Create an initial population.
         self.population = Population(self.given, Nc)
-        self.population.seed(Nc, self.given)  # Send Sudoku to population.
+        self.population.initialize(Nc, self.given)  # Send Sudoku to population.
 
-        # Create a list of all the solutions.
-        self.solutions = []
+        # Create a list of elites.
+        self.elites = []
+
+        # Create a list of best individuals.
+        self.best_individuals = []
+
+        # 
