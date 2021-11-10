@@ -2,6 +2,7 @@ import pygame
 import requests
 import numpy as np
 from sudoku_game import *
+from candidate import Candidate
 
 difficulty = ["easy", "medium", "hard", "random"]
 random = np.random.randint(3)
@@ -78,12 +79,12 @@ def main():
     sudoku = Sudoku(list)
     print('Welcome to Python!')
     sudoku.solve(list)
-
+ 
     while True:
         for event in pygame.event.get():
             # Just to Display Coordinates
             pos = pygame.mouse.get_pos()
-            print(pos)
+            # print(pos)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
