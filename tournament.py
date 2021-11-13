@@ -1,9 +1,5 @@
 import random
 class Tournament(object):
-    """ The crossover function requires two parents to be selected from the population pool. The Tournament class is used to do this.
-    
-    Two individuals are selected from the population pool and a random number in [0, 1] is chosen. If this number is less than the 'selection rate' (e.g. 0.85), then the fitter individual is selected; otherwise, the weaker one is selected.
-    """
 
     def __init__(self):
         return
